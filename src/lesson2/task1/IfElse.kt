@@ -4,8 +4,6 @@ package lesson2.task1
 
 import com.sun.org.apache.xpath.internal.operations.Bool
 import lesson1.task1.discriminant
-import kotlin.math.abs
-import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -85,7 +83,7 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double{
+): Double {
     val way = (v1 * t1 + v2 * t2 + v3 * t3) / 2
     if (way <= v1 * t1) return way / v1
     if (way <= v1 * t1 + v2 * t2) return t1 + (way - v1 * t1) / v2
@@ -114,6 +112,9 @@ fun whichRookThreatens(
     return 0
 }
 
+fun abs(x: Int): Int = if (x < 0) -x else x
+fun abs(x: Double): Double = if (x < 0) -x else x
+
 /**
  * Простая
  *
@@ -137,6 +138,8 @@ fun rookOrBishopThreatens(
     return 0
 }
 
+fun hypot(x: Double, y: Double): Double = sqrt(x * x + y * y)
+
 /**
  * Простая
  *
@@ -145,7 +148,7 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int{
+fun triangleKind(a: Double, b: Double, c: Double): Int {
     if (a + b <= c || a + c <= b || b + c <= a) return -1
     if (hypot(a, b) == c || hypot(a, c) == b || hypot(c, b) == a) return 1
     if (hypot(a, b) < c || hypot(a, c) < b || hypot(c, b) < a) return 2
@@ -160,12 +163,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int{
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int{
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if (c in a..b) {
         return if (d in a..b) d - c
         else b - c
     }
-    if (a in c..d){
+    if (a in c..d) {
         return if (b in c..d) b - a
         else d - a
     }
