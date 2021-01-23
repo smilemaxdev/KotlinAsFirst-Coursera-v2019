@@ -57,7 +57,19 @@ fun main() {
     }
 }
 
+fun daysInMonth(month: Int, year: Int): Int {
+    var is_leap: Boolean = false
+    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+        is_leap = true
+    }
 
+    if (month == 1 || month == 3 || month == 5 || month in 7..8 || month == 10 || month == 12) return 31
+    if (month == 4 || month == 6 || month == 9 || month == 11) return 30
+    return when(is_leap){
+        true -> 29
+        else -> 28
+    }
+}
 /**
  * Средняя
  *
@@ -69,7 +81,32 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val date = str.split(" ")
+    if (date.size != 3)
+        return ""
+    val day   = date[0]
+    val month = date[1]
+    val year  = date[2]
+    val dig_month = when (month) {
+        "января"  -> "01"
+        "февраля" -> "02"
+        "марта"   -> "03"
+        "апреля"  -> "04"
+        "мая"     -> "05"
+        "июня"    -> "06"
+        "июля"    -> "07"
+        "августа" -> "08"
+        "сентября"-> "09"
+        "октября" -> "10"
+        "ноября"  -> "11"
+        "декабря" -> "12"
+        else -> ""
+    }
+    if (dig_month == "") return ""
+    if (daysInMonth(dig_month.toInt(), year.toInt()) < day.toInt()) return ""
+    return String.format("%02d.%02d.%d", day.toInt(), dig_month.toInt(), year.toInt())
+}
 
 /**
  * Средняя
@@ -81,7 +118,32 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val date = digital.split(".")
+    if (date.size != 3)
+        return ""
+    val day   = date[0]
+    val month = date[1]
+    val year  = date[2]
+    val dig_month = when (month) {
+        "01" -> "января"
+        "02" -> "февраля"
+        "03" -> "марта"
+        "04" -> "апреля"
+        "05" -> "мая"
+        "06" -> "июня"
+        "07" -> "июля"
+        "08" -> "августа"
+        "09" -> "сентября"
+        "10" -> "октября"
+        "11" -> "ноября"
+        "12" -> "декабря"
+        else -> ""
+    }
+    if (dig_month == "") return ""
+    if (daysInMonth(month.toInt(), year.toInt()) < day.toInt()) return ""
+    return String.format("%d %s %d", day.toInt(), dig_month, year.toInt())
+}
 
 /**
  * Средняя
